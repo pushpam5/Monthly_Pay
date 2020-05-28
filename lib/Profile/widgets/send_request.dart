@@ -51,88 +51,95 @@ class _sendRequestState extends State<sendRequest> {
       ),
       body: CustomPaint(
         painter: CurvePainter(),
-        child: Container(
-            height: MediaQuery.of(context).size.height * 0.7,
-            child: NewRequest.isEmpty
-                ? Text('No Requsts')
-                : ListView.builder(
-                    itemBuilder: (inf, index) {
-                      return Card(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                        elevation: 5,
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                NewRequest[index].name,
-                                style: Theme.of(context).textTheme.subtitle1,
-                                overflow: TextOverflow.ellipsis,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: NewRequest.isEmpty
+                  ? Text('No Requsts')
+                  : ListView.builder(
+                      itemBuilder: (inf, index) {
+                        return Card(
+                          margin:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                          elevation: 5,
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: EdgeInsets.all(8),
+                                child: Text(
+                                  NewRequest[index].name,
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    NewRequest[index].mobile.toString(),
-                                    style:
-                                        Theme.of(context).textTheme.subtitle2,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    DateFormat.yMMMd()
-                                        .format(NewRequest[index].date),
-                                    style:
-                                        Theme.of(context).textTheme.subtitle2,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    NewRequest[index].description,
-                                    style:
-                                        Theme.of(context).textTheme.subtitle2,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    '₹ ${NewRequest[index].amount.toString()}',
-                                    style:
-                                        Theme.of(context).textTheme.subtitle2,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: FittedBox(
-                                    child: Icon(
-                                      Icons.send,
-                                      size: 25,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(45.0,0,0,0),
+                                      child: Text(
+                                        NewRequest[index].mobile.toString(),
+                                        style:
+                                            Theme.of(context).textTheme.subtitle2,
+                                        textAlign: TextAlign.left,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   ),
-                                  onPressed: () {},
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                    itemCount: NewRequest.length,
-                  )),
+                                  Expanded(
+                                    child: Text(
+                                      DateFormat.yMMMd()
+                                          .format(NewRequest[index].date),
+                                      style:
+                                          Theme.of(context).textTheme.subtitle2,
+
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Text(
+                                      NewRequest[index].description,
+                                      style:
+                                          Theme.of(context).textTheme.subtitle2,
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      '₹ ${NewRequest[index].amount.toString()}',
+                                      style:
+                                          Theme.of(context).textTheme.subtitle2,
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: FittedBox(
+                                      child: Icon(
+                                        Icons.send,
+                                        size: 25,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                    onPressed: () {},
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                      itemCount: NewRequest.length,
+                    )),
+        ),
       ),
     );
   }

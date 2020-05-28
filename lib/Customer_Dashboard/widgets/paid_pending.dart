@@ -13,10 +13,10 @@ class _PaidPendingState extends State<PaidPending> {
         return Row(
           children: <Widget>[
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.02,
+              width: MediaQuery.of(context).size.width * 0.01,
             ),
             Container(
-              width: MediaQuery.of(context).size.width * 0.48,
+              width: MediaQuery.of(context).size.width * 0.40,
               child: Card(
                 elevation: 12,
                 child: Column(
@@ -25,7 +25,7 @@ class _PaidPendingState extends State<PaidPending> {
                       height: constraints.maxHeight * 0.05,
                     ),
                     Container(
-                      height: constraints.maxHeight * 0.25,
+                      height: constraints.maxHeight * 0.20,
                       child: Text(
                         'Paid',
                         style: Theme.of(context).textTheme.headline6,
@@ -92,15 +92,16 @@ class _PaidPendingState extends State<PaidPending> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: constraints.maxHeight * 0.05,
-                    ),
+
                   ],
                 ),
               ),
             ),
+            SizedBox(
+                width: MediaQuery.of(context).size.width*0.90 - 2 * MediaQuery.of(context).size.width * 0.41
+            ),
             Container(
-              width: MediaQuery.of(context).size.width * 0.48,
+              width: MediaQuery.of(context).size.width * 0.40,
               child: Card(
                 elevation: 12,
                 child: Column(
@@ -109,7 +110,7 @@ class _PaidPendingState extends State<PaidPending> {
                       height: constraints.maxHeight * 0.05,
                     ),
                     Container(
-                      height: constraints.maxHeight * 0.25,
+                      height: constraints.maxHeight * 0.20,
                       child: Text(
                         'Pending',
                         style: Theme.of(context).textTheme.headline6,

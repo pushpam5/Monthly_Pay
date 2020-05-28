@@ -14,7 +14,7 @@ class _LedgerListState extends State<LedgerList> {
         amount: 200,
         status: 'P'),
     LedgerModel(
-        name: 'Denik Bhaskar',
+        name: 'Dainik Bhaskar',
         occupation: 'Newspaper',
         amount: 200,
         status: 'P'),
@@ -37,35 +37,38 @@ class _LedgerListState extends State<LedgerList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        return Card(
-          elevation: 12,
-          child: ListTile(
-            leading: CircleAvatar(
-              radius: 25,
-              backgroundColor: Theme.of(context).primaryColor,
-              child: Text(
-                ledgerModels[index].status,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    .copyWith(fontSize: 35),
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
+          child: Card(
+            elevation: 12,
+            child: ListTile(
+              leading: CircleAvatar(
+                radius: 25,
+                backgroundColor: Theme.of(context).primaryColor,
+                child: Text(
+                  ledgerModels[index].status,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5
+                      .copyWith(fontSize: 35),
+                ),
               ),
-            ),
-            title: Text(
-              ledgerModels[index].name,
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-            subtitle: Text(
-              ledgerModels[index].occupation,
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-            trailing: Container(
-              width: MediaQuery.of(context).size.width * 0.2,
-              child: Center(
-                child: FittedBox(
-                                  child: Text(
-                    "${ledgerModels[index].amount}",
-                    style: Theme.of(context).textTheme.subtitle1,
+              title: Text(
+                ledgerModels[index].name,
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+              subtitle: Text(
+                ledgerModels[index].occupation,
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+              trailing: Container(
+                width: MediaQuery.of(context).size.width * 0.2,
+                child: Center(
+                  child: FittedBox(
+                                    child: Text(
+                      "₹ ${ledgerModels[index].amount}",
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
                   ),
                 ),
               ),

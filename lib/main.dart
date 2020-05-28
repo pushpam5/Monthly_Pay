@@ -18,25 +18,31 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.blue[900],
+        primaryColor: Colors.lightBlue[600],
         accentColor: Colors.white,
         textTheme: TextTheme(
           headline5: TextStyle(
             color: Colors.white,
             fontSize: 25,
+            fontFamily: 'BenchNine'
           ),
           headline6: TextStyle(
-            color: Colors.blue[900],
+            color: Colors.black,
             fontSize: 30,
+              fontFamily: 'SIMPLIFICA'
+
           ),
           subtitle1: TextStyle(
-            color: Colors.black,
+            color: Colors.black87,
             fontWeight: FontWeight.w500,
+            fontFamily: 'BenchNine',
+
             fontSize: 20,
           ),
           subtitle2: TextStyle(
-            color: Colors.grey[700],
+            color: Colors.grey,
             fontSize: 17,
+            fontFamily: 'BenchNine',
           )
         ),
       ),

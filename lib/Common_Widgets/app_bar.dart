@@ -12,22 +12,25 @@ class AppBarIcons extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).padding.top,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                'Dashboard',
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.notifications,
-                  size: 30,
-                  color: nonSelected,
+          Container(
+
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Dashboard',
+                  style: Theme.of(context).textTheme.headline5,
                 ),
-                onPressed: () {},
-              ),
-            ],
+                IconButton(
+                  icon: Icon(
+                    Icons.notifications,
+                    size: 30,
+                    color: nonSelected,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+            ),
           ),
         ],
       ),

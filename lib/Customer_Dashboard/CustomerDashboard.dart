@@ -154,46 +154,53 @@ class _CustomerDashboardState extends State<CustomerDashboard>
             appBar: appBar,
             body: CustomPaint(
               painter: CurvePainter(),
-              child: Container(
-                height: _heightOfScreen,
-                child: Column(
-                  children: <Widget>[
-                    Transform(
-                      transform: Matrix4.translationValues(
-                        animationForPaidPending.value * _widthOfScreen,
-                        0,
-                        0,
+              child: SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForPaidPending.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15.0,10.0,15.0,10.0),
+                          child: Container(
+                            height: _heightOfScreen / 4,
+                            child: PaidPending(),
+                          ),
+                        ),
                       ),
-                      child: Container(
-                        height: _heightOfScreen / 3,
-                        child: PaidPending(),
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForActiveOrder.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15.0,10.0,15.0,10.0),
+                          child: Container(
+                            height: _heightOfScreen / 3,
+                            width: _widthOfScreen * 0.90,
+                            child: ActiveOrder(),
+                          ),
+                        ),
                       ),
-                    ),
-                    Transform(
-                      transform: Matrix4.translationValues(
-                        animationForActiveOrder.value * _widthOfScreen,
-                        0,
-                        0,
-                      ),
-                      child: Container(
-                        height: _heightOfScreen / 3,
-                        width: _widthOfScreen * 0.96,
-                        child: ActiveOrder(),
-                      ),
-                    ),
-                    Transform(
-                      transform: Matrix4.translationValues(
-                        animationForInactiveOrder.value * _widthOfScreen,
-                        0,
-                        0,
-                      ),
-                      child: Container(
-                        height: _heightOfScreen / 3,
-                        width: _widthOfScreen * 0.96,
-                        child: InactiveOrder(),
-                      ),
-                    )
-                  ],
+                      Transform(
+                        transform: Matrix4.translationValues(
+                          animationForInactiveOrder.value * _widthOfScreen,
+                          0,
+                          0,
+                        ),
+                        child: Container(
+                          height: _heightOfScreen / 3,
+                          width: _widthOfScreen * 0.90,
+                          child: InactiveOrder(),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

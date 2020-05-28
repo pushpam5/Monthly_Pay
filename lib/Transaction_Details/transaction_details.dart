@@ -156,16 +156,19 @@ class _TransactionDetailsState extends State<TransactionDetails>
                     child: Container(
                       width: _widthOfScreen * 0.83,
                       child: FittedBox(
-                        child: Text(
-                          _transaction.name,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(
-                                color: Colors.white,
-                              ),
-                          textAlign: TextAlign.center,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0.0,8.0,0,0),
+                          child: Text(
+                            _transaction.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(
+                                  color: Colors.white,
+                                ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
@@ -174,7 +177,7 @@ class _TransactionDetailsState extends State<TransactionDetails>
                     right: 3,
                     child: IconButton(
                       icon: FittedBox(
-                        child: Icon(Icons.share, size: 40),
+                        child: Icon(Icons.share, size: 30),
                       ),
                       onPressed: () {},
                       color: Colors.white,

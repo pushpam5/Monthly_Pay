@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 class CurvePainter extends CustomPainter{
   @override
   void paint(Canvas canvas, Size size){
     var paint = Paint();
-    paint.color = Colors.blue[900];
+    paint.shader = ui.Gradient.linear(Offset(0, size.height * 0.25),Offset(size.width, size.height / 2), [Colors.lightBlue[600],Colors.blue[300] ]);
     paint.style = PaintingStyle.fill;
 
     var path = Path();

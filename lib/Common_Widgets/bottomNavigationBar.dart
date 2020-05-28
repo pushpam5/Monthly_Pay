@@ -60,7 +60,7 @@ class _NavigationBarState extends State<NavigationBar> {
                 });
               },
               currentIndex: _currentTab,
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Colors.white,
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
@@ -80,9 +80,9 @@ class _NavigationBarState extends State<NavigationBar> {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.account_circle), title: SizedBox.shrink()),
               ],
-              iconSize: 32,
-              selectedItemColor: Theme.of(context).accentColor,
-              unselectedItemColor: Colors.black,
+              iconSize: 29,
+              selectedItemColor: Theme.of(context).primaryColor,
+              unselectedItemColor: Colors.grey,
               type: BottomNavigationBarType.fixed,
             ),
           );

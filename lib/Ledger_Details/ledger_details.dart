@@ -156,7 +156,10 @@ class _LedgerDetailsState extends State<LedgerDetails>
                         child: Container(
                           height: _heightOfScreen * 0.73,
                           width: _widthOfScreen * 0.96,
-                          child: LedgerList(),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(8.0,15.0,8.0,15.0),
+                            child: LedgerList(),
+                          ),
                         ),
                       ),
                     ],
