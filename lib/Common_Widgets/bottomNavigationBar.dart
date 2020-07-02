@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:monthly_pay_admin/Customer_Dashboard/CustomerDashboard.dart';
 import 'package:monthly_pay_admin/Ledger_Details/ledger_details.dart';
 import 'package:monthly_pay_admin/Profile/profile.dart';
-import 'package:monthly_pay_admin/Transaction_Details/models/TransactionModel.dart';
 import 'package:monthly_pay_admin/Transaction_Details/transaction_details.dart';
 
 class NavigationBar extends StatefulWidget {
@@ -38,7 +37,7 @@ class _NavigationBarState extends State<NavigationBar> {
 
   List<Widget> bottomBarWidgets = [
     CustomerDashboard(),
-    TransactionDetails(transactionModel: TransactionModel(name: 'N.D.P.S'),),
+    TransactionDetails(),
     LedgerDetails(),
     ProfilePage(),
   ];

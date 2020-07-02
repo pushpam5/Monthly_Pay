@@ -59,7 +59,7 @@ class _updateMobileState extends State<updateMobile>
                   ),
                   SizedBox(height: 10),
                   Material(
-                    color: Colors.green,
+                    color: Theme.of(context).primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     child: FlatButton(

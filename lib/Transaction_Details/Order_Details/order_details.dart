@@ -4,8 +4,9 @@ import 'package:monthly_pay_admin/Transaction_Details/models/TransactionModel.da
 
 class OrderDetails extends StatefulWidget {
   final TransactionModel transactionModel;
+  final List<TransactionModel> transactions;
 
-  OrderDetails({this.transactionModel});
+  OrderDetails({this.transactionModel, this.transactions});
   @override
   _OrderDetailsState createState() => _OrderDetailsState();
 }
@@ -15,10 +16,28 @@ class _OrderDetailsState extends State<OrderDetails>
   Animation animationForOrderDetials;
   AnimationController animationController;
 
+  List<DropdownMenuItem> get dropDownTransactions {
+    return List.generate(
+      widget.transactions.length,
+      (index) => DropdownMenuItem(
+        child: Text(
+          widget.transactions[index].name,
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        value: widget.transactions[index],
+      ),
+    );
+  }
+
+  var currentTransaction;
+
   @override
   void initState() {
     super.initState();
-
+    currentTransaction = widget.transactionModel;
     animationController = AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
@@ -39,6 +58,26 @@ class _OrderDetailsState extends State<OrderDetails>
     title: Text('Order Details'),
   );
 
+  String getFrequency(Frequency frequency) {
+    if (frequency == Frequency.adHoc) {
+      return 'Ad-Hoc';
+    } else if (frequency == Frequency.monthly) {
+      return 'Monthly';
+    } else {
+      return null;
+    }
+  }
+
+  String getTransactionType(TransactionType transactionType) {
+    if (transactionType == TransactionType.fixed) {
+      return 'Fixed';
+    } else if (transactionType == TransactionType.flexible) {
+      return 'Flexible';
+    } else {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     TransactionModel _transaction = widget.transactionModel;
@@ -47,6 +86,8 @@ class _OrderDetailsState extends State<OrderDetails>
         MediaQuery.of(context).padding.top;
 
     final _widthOfScreen = MediaQuery.of(context).size.width;
+
+    var _theme = Theme.of(context);
 
     return AnimatedBuilder(
       animation: animationController,
@@ -62,17 +103,46 @@ class _OrderDetailsState extends State<OrderDetails>
                   color: Theme.of(context).primaryColor,
                   height: _heightOfScreen / 4,
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 30),
-                  width: _widthOfScreen,
-                  child: Text(
-                    _transaction.name,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        .copyWith(color: Colors.white, fontSize: 35),
-                    textAlign: TextAlign.center,
+                Positioned(
+                  left: _widthOfScreen * (0.17 / 2),
+                                  child: Container(
+                    width: _widthOfScreen * 0.83,
+                    child: FittedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0.0, 8.0, 0, 0),
+                        child: Container(
+                          alignment: Alignment.center,
+                          // width: _widthOfScreen * 0.5,
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 15,
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              isDense: true,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              items: dropDownTransactions,
+                              value: currentTransaction,
+                              onChanged: (val) {
+                                setState(() {
+                                  currentTransaction = val;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Positioned(
@@ -90,7 +160,84 @@ class _OrderDetailsState extends State<OrderDetails>
                       elevation: 7,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
-                      child: Container(child: Text('')),
+                      child: Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                  'Limit: ${currentTransaction.limit.toString()}',
+                                  style: _theme.textTheme.headline6,
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                  'Frequency: ${getFrequency(currentTransaction.frequency)}',
+                                  style: _theme.textTheme.headline6,
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                  'End Date: ',
+                                  style: _theme.textTheme.headline6,
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8),
+                                      child: Text(
+                                        'Transaction Date:',
+                                        style: _theme.textTheme.headline6,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8),
+                                      child: Text(
+                                        'From Date: dd/mm/yyyy',
+                                        style: _theme.textTheme.headline6,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8),
+                                      child: Text(
+                                        'To Date: dd/mm/yyyy',
+                                        style: _theme.textTheme.headline6,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                  'Transaction Type: ${getTransactionType(currentTransaction.transactionType)}',
+                                  style: _theme.textTheme.headline6,
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                  'Bank:',
+                                  style: _theme.textTheme.headline6,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 )

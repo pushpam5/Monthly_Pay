@@ -11,10 +11,6 @@ import 'package:monthly_pay_admin/Transaction_Details/widgets/paidT.dart';
 import 'package:monthly_pay_admin/Transaction_Details/widgets/pending.dart';
 
 class TransactionDetails extends StatefulWidget {
-  final TransactionModel transactionModel;
-
-  TransactionDetails({this.transactionModel});
-
   @override
   _TransactionDetailsState createState() => _TransactionDetailsState();
 }
@@ -40,6 +36,31 @@ class _TransactionDetailsState extends State<TransactionDetails>
     );
   }
 
+  List<TransactionModel> transactions = [
+    TransactionModel(
+        name: 'N.D.P.S',
+        limit: 350,
+        frequency: Frequency.adHoc,
+        transactionType: TransactionType.fixed),
+    TransactionModel(
+        name: 'Fit and Fine',
+        limit: 350,
+        frequency: Frequency.adHoc,
+        transactionType: TransactionType.flexible),
+    TransactionModel(
+        name: 'Malvi News Agency',
+        limit: 350,
+        frequency: Frequency.monthly,
+        transactionType: TransactionType.fixed),
+    TransactionModel(
+        name: 'Ram Dudh Bhandar',
+        limit: 350,
+        frequency: Frequency.monthly,
+        transactionType: TransactionType.flexible),
+  ];
+
+  TransactionModel currentTransaction;
+
   //Animation Fast in Slow out
   Animation animationForPaid;
   Animation animationForPending;
@@ -49,6 +70,8 @@ class _TransactionDetailsState extends State<TransactionDetails>
   @override
   void initState() {
     super.initState();
+
+    currentTransaction = transactions[0];
 
     animationController = AnimationController(
       vsync: this,
@@ -77,17 +100,30 @@ class _TransactionDetailsState extends State<TransactionDetails>
   }
 
   int _currentTab = 1;
-  
 
-  Future<bool> _backPressed(){
-    return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CustomerDashboard()));
+  List<DropdownMenuItem> get dropDownTransactions {
+    return List.generate(
+      transactions.length,
+      (index) => DropdownMenuItem(
+        child: Text(
+          transactions[index].name,
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        value: transactions[index],
+      ),
+    );
   }
 
+  Future<bool> _backPressed() {
+    return Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => CustomerDashboard()));
+  }
 
   @override
   Widget build(BuildContext context) {
-    TransactionModel _transaction = widget.transactionModel;
-
     AppBar _appBar = AppBar(
       elevation: 0.0,
       title: Text('Transaction Details'),
@@ -97,7 +133,8 @@ class _TransactionDetailsState extends State<TransactionDetails>
             _fadeTransitionWithPush(
                 context,
                 OrderDetails(
-                  transactionModel: _transaction,
+                  transactionModel: currentTransaction,
+                  transactions: transactions,
                 ));
           },
           child: Container(
@@ -128,115 +165,137 @@ class _TransactionDetailsState extends State<TransactionDetails>
         builder: (context, child) {
           return WillPopScope(
             onWillPop: _backPressed,
-                      child: Scaffold(
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () {},
-                  child: Icon(
-                    Icons.arrow_downward,
-                    color: Colors.white,
-                  ),
-                  backgroundColor: Theme.of(context).primaryColor,
+            child: Scaffold(
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {},
+                child: Icon(
+                  Icons.arrow_downward,
+                  color: Colors.white,
                 ),
-                bottomNavigationBar: NavigationBar(
-                  currentTab: _currentTab,
-                ),
-                appBar: _appBar,
-                body: CustomPaint(
-                  painter: CurvePainter(),
-                  child: Container(
-                    height: _heightOfScreen,
-                    child: Column(
-                      children: <Widget>[
-            Container(
-              width: _widthOfScreen,
-              height: _heightOfScreen * 0.07,
-              child: Stack(
-                children: <Widget>[
-                  Center(
-                    child: Container(
-                      width: _widthOfScreen * 0.83,
-                      child: FittedBox(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0.0,8.0,0,0),
-                          child: Text(
-                            _transaction.name,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6
-                                .copyWith(
-                                  color: Colors.white,
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
+              bottomNavigationBar: NavigationBar(
+                currentTab: _currentTab,
+              ),
+              appBar: _appBar,
+              body: CustomPaint(
+                painter: CurvePainter(),
+                child: Container(
+                  height: _heightOfScreen,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        width: _widthOfScreen,
+                        height: _heightOfScreen * 0.07,
+                        child: Stack(
+                          children: <Widget>[
+                            Center(
+                              child: Container(
+                                width: _widthOfScreen * 0.83,
+                                child: FittedBox(
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        0.0, 8.0, 0, 0),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      // width: _widthOfScreen * 0.5,
+                                      margin: EdgeInsets.symmetric(
+                                        horizontal: 15,
+                                      ),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton(
+                                          isDense: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6
+                                              .copyWith(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                          items: dropDownTransactions,
+                                          value: currentTransaction,
+                                          onChanged: (val) {
+                                            setState(() {
+                                              currentTransaction = val;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                            textAlign: TextAlign.center,
-                          ),
+                              ),
+                            ),
+                            Positioned(
+                              right: 3,
+                              child: IconButton(
+                                icon: FittedBox(
+                                  child: Icon(Icons.share, size: 30),
+                                ),
+                                onPressed: () {},
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    ),
-                  ),
-                  Positioned(
-                    right: 3,
-                    child: IconButton(
-                      icon: FittedBox(
-                        child: Icon(Icons.share, size: 30),
+                      Container(
+                        height: _heightOfScreen * 0.2,
+                        child: DateSelect(),
                       ),
-                      onPressed: () {},
-                      color: Colors.white,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              height: _heightOfScreen * 0.2,
-              child: DateSelect(),
-            ),
-            Container(
-              height: _heightOfScreen * 0.73,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Transform(
-                      transform: Matrix4.translationValues(
-                        _widthOfScreen * animationForPaid.value,
-                        0,
-                        0,
-                      ),
-                      child: Container(
-                        height: (_heightOfScreen * 0.75) / 2.2,
-                        child: PaidTr(),
-                      ),
-                    ),
-                    Transform(
-                      transform: Matrix4.translationValues(
-                        _widthOfScreen * animationForPending.value,
-                        0,
-                        0,
-                      ),
-                      child: Container(
-                        height: (_heightOfScreen * 0.75) / 2.2,
-                        child: PendingTr(),
-                      ),
-                    ),
-                    Transform(
-                      transform: Matrix4.translationValues(
-                        _widthOfScreen * animationForBounce.value,
-                        0,
-                        0,
-                      ),
-                      child: Container(
-                        height: (_heightOfScreen * 0.75) / 2.2,
-                        child: BounceTr(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-                      ],
-                    ),
+                      Container(
+                        height: _heightOfScreen * 0.73,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: <Widget>[
+                              Transform(
+                                transform: Matrix4.translationValues(
+                                  _widthOfScreen * animationForPaid.value,
+                                  0,
+                                  0,
+                                ),
+                                child: Container(
+                                  height: (_heightOfScreen * 0.75) / 2.2,
+                                  child: PaidTr(),
+                                ),
+                              ),
+                              Transform(
+                                transform: Matrix4.translationValues(
+                                  _widthOfScreen * animationForPending.value,
+                                  0,
+                                  0,
+                                ),
+                                child: Container(
+                                  height: (_heightOfScreen * 0.75) / 2.2,
+                                  child: PendingTr(),
+                                ),
+                              ),
+                              Transform(
+                                transform: Matrix4.translationValues(
+                                  _widthOfScreen * animationForBounce.value,
+                                  0,
+                                  0,
+                                ),
+                                child: Container(
+                                  height: (_heightOfScreen * 0.75) / 2.2,
+                                  child: BounceTr(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
+            ),
           );
         });
   }

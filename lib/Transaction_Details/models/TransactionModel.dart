@@ -1,8 +1,19 @@
 class TransactionModel {
   String name;
-  // DateTime date;
-  // String invoice;
-  // double amount;
+  double limit;
+  Frequency frequency;
+  TransactionType transactionType;
 
-  TransactionModel({this.name});
+
+  TransactionModel({this.name,this.frequency,this.limit,this.transactionType});
+}
+
+enum Frequency{
+  monthly,
+  adHoc,
+}
+
+enum TransactionType{
+  fixed,
+  flexible,
 }
