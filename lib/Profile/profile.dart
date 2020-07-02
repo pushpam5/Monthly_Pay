@@ -301,16 +301,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-class BackendService {
-  static Future<List> getSuggestions(String query) async {
-    await Future.delayed(Duration(seconds: 1));
-
-    return List.generate(3, (index) {
-      return {'name': query + index.toString()};
-    });
-  }
-}
-
 class StateService {
   static final List<String> states = [
     'ANDAMAN AND NICOBAR ISLANDS',
