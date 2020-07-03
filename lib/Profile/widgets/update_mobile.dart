@@ -68,7 +68,7 @@ class _updateMobileState extends State<updateMobile>
                         style: Theme.of(context).textTheme.headline5,
                       ),
                       onPressed: () {
-                        return Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CustomerDashboard()));
+                        return Navigator.of(context).pop(true);
                       },
                     ),
                   )
